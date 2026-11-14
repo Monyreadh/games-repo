@@ -28,20 +28,22 @@ jobs:
           python-version: '3.12'
 
       - name: Install pygbag
-        run: pip install pygbag
+        run: pip install pygbag==0.9.3
 
       - name: Build all games
         run: |
           set -e
           mkdir -p site
-          for game in maze-runner space-shooter cowboy drone-hunter; do
+          for entry in */main.py; do
+            game="${entry%/main.py}"
             echo "==> Building $game"
             cd "$game"
-            python -m pygbag --build --ume_block 0 --disable-sound-format-error .
+            python -m pygbag --build --disable-sound-format-error .
             cd ..
             mkdir -p "site/$game"
             cp -r "$game/build/web/." "site/$game/"
           done
+          python scripts/make_index.py
 
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
