@@ -466,7 +466,7 @@ def draw_menu(surface):
     return start_button
 
 
-pygame.mixer.music.load("assets/Music/theme.mp3")
+pygame.mixer.music.load("assets/Music/theme.ogg")
 pygame.mixer.music.set_volume(0.4)
 pygame.mixer.music.play(-1)
 
